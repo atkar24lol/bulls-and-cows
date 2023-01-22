@@ -2,33 +2,39 @@ let target = generateRandomFourDigitNumber();
 let guess;
 let bulls = 0;
 let cows = 0;
-let attempts = 0;
+let attempts = 5;
 let turns = 0;
 console.log(target);
-console.log("игра быки и коровы");
+console.log("быки и коровы");
 
-let level = prompt("введи уровень сложности от 1 до 3");
+let levelSelect = document.getElementById("level");
+let guessInput = document.getElementById("guess-input");
+let submitBtn = document.getElementById("submit-guess");
+let resultDiv = document.getElementById("result");
+let turnsBody = document.getElementById("turns-body");
 
-if (level === "1") {
-  attempts = 5;
-} else if (level === "2") {
-  attempts = 4;
-} else if (level === "3") {
-  attempts = 3;
-}
-
-while (bulls < 4) {
-  if (attempts === 0) {
-    console.log("у вас кончились ходы");
-    break;
+levelSelect.addEventListener("change", function () {
+  if (levelSelect.value === "1") {
+    attempts = 5;
+  } else if (levelSelect.value === "2") {
+    attempts = 4;
+  } else if (levelSelect.value === "3") {
+    attempts = 3;
   }
-  guess = prompt("введи 4-х значное число");
+});
+
+submitBtn.addEventListener("click", function () {
+  if (attempts === 0) {
+    resultDiv.innerHTML = "у тебя кончились попытки. игра окончена.";
+    return;
+  }
+
+  guess = guessInput.value;
 
   if (!isValidGuess(guess)) {
-    console.log(
-      "Invalid guess. введи 4 значное число в котором однозначные числа не повторяются"
-    );
-    continue;
+    resultDiv.innerHTML =
+      "Invalid guess. введи 4х значное число, в котором 1 значные числа не повторяются";
+    return;
   }
 
   bulls = countBulls(target, guess);
@@ -36,14 +42,47 @@ while (bulls < 4) {
 
   turns++;
   attempts--;
-  console.log(`Ход: ${turns}`);
-  console.log(`быки: ${bulls}, коровы: ${cows}`);
+  console.log(`ход: ${turns}`);
+  console.log(`быки: ${bulls}, коровы: ${cows - bulls}`);
   console.log(`попыток осталось: ${attempts}`);
-}
+  resultDiv.innerHTML = `попыток осталось: ${attempts}`;
+  guessInput.value = "";
 
-if (bulls === 4) {
-  console.log("маладец игру выиграл");
-}
+  let row = document.createElement("tr");
+  let turnCell = document.createElement("td");
+  let guessCell = document.createElement("td");
+  let bullsCell = document.createElement("td");
+  let cowsCell = document.createElement("td");
+  turnCell.innerHTML = turns;
+  guessCell.innerHTML = guess;
+  bullsCell.innerHTML = bulls;
+  cowsCell.innerHTML = cows - bulls;
+  row.appendChild(turnCell);
+  row.appendChild(guessCell);
+  row.appendChild(bullsCell);
+  row.appendChild(cowsCell);
+  turnsBody.appendChild(row);
+
+  if (bulls === 4) {
+    resultDiv.innerHTML = "маладец игру выиграл.";
+  }
+});
+
+const restartButton = document.getElementById("restart-button");
+restartButton.addEventListener("click", function () {
+  target = generateRandomFourDigitNumber();
+  guess = 0;
+  bulls = 0;
+  cows = 0;
+  attempts = 5;
+  turns = 0;
+  document.getElementById("level").selectedIndex = 0;
+  document.getElementById("guess-input").value = "";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("turns-body").innerHTML = "";
+  console.log("игра перезапущена");
+  console.log(target);
+});
 
 function generateRandomFourDigitNumber() {
   let num;

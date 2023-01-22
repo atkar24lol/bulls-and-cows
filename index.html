@@ -4,43 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Bulls and Cows</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <h1>Bulls and Cows</h1>
+    <h1 class="name">Быки и коровы</h1>
     <div id="game-container">
       <div id="level-select">
-        <label for="level">Select Difficulty Level:</label>
+        <label for="level">уровень сложности:</label>
         <select id="level" name="level">
-          <option value="1">Easy (5 attempts)</option>
-          <option value="2">Medium (4 attempts)</option>
-          <option value="3">Hard (3 attempts)</option>
+          <option value="1">легкий (5попыток)</option>
+          <option value="2">средний (4 попытки)</option>
+          <option value="3">тяжелый (3 попытки)</option>
         </select>
       </div>
-      
-      <div>
-        <input
-          type="text"
-          id="guess-input"
-          placeholder="Enter your 4-digit guess"
-        />
-        <button id="submit-guess">Submit</button>
+      <div class="divv">
+        <input type="text" id="guess-input" placeholder="твое 4х знач число" />
+        <button id="submit-guess">начать</button>
       </div>
       <div id="result"></div>
+      <button id="restart-button">Restart Game</button>
     </div>
 
     <table id="turns-table">
       <thead>
         <tr>
-          <th>Turn</th>
-          <th>Guess</th>
-          <th>Bulls</th>
-          <th>Cows</th>
+          <th>ход</th>
+          <th>твое число</th>
+          <th>быки</th>
+          <th>коровы</th>
         </tr>
       </thead>
       <tbody id="turns-body"></tbody>
     </table>
+
     <script src="./script.js"></script>
   </body>
 </html>
