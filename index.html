@@ -5,8 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <h1>Bulls and Cows</h1>
+    <div id="game-container">
+      <div id="level-select">
+        <label for="level">Select Difficulty Level:</label>
+        <select id="level" name="level">
+          <option value="1">Easy (5 attempts)</option>
+          <option value="2">Medium (4 attempts)</option>
+          <option value="3">Hard (3 attempts)</option>
+        </select>
+      </div>
+      <div>
+        <input
+          type="text"
+          id="guess-input"
+          placeholder="Enter your 4-digit guess"
+        />
+        <button id="submit-guess">Submit</button>
+      </div>
+      <div id="result"></div>
+    </div>
+
+    <table id="turns-table">
+      <thead>
+        <tr>
+          <th>Turn</th>
+          <th>Guess</th>
+          <th>Bulls</th>
+          <th>Cows</th>
+        </tr>
+      </thead>
+      <tbody id="turns-body"></tbody>
+    </table>
     <script src="./script.js"></script>
   </body>
 </html>
